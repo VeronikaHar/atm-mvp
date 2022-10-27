@@ -84,16 +84,15 @@ export default function PinPad({ users, setAuthorizedUser }) {
               (user) => user.pin === enteredPin
             );
             if (loggedInUserIdx > -1) {
-              // if last withdrawal was not today, reset withdrawnToday amount
-              if (
-                users[loggedInUserIdx].lastWithdrawalDate !==
-                new Date().toLocaleDateString()
-              ) {
-                users.splice(loggedInUserIdx, 1, {
-                  ...users[loggedInUserIdx],
-                  withdrawnToday: 0,
-                });
-              }
+              users[loggedInUserIdx] = {
+                ...users[loggedInUserIdx],
+                // if last withdrawal was not today, reset withdrawnToday amount
+                withdrawnToday:
+                  users[loggedInUserIdx].lastWithdrawalDate ===
+                  new Date().toLocaleDateString()
+                    ? users[loggedInUserIdx]?.withdrawnToday
+                    : 0,
+              };
               return setAuthorizedUser(users[loggedInUserIdx]);
             }
             return setAuthorizationError(loggedInUserIdx === -1);

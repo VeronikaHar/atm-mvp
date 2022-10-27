@@ -1,10 +1,10 @@
 import PinPad from "./components/PinPad";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AccountView from "./components/AccountView";
 
 function App() {
   const [authorizedUser, setAuthorizedUser] = useState();
-  const [users] = useState([
+  const [users, setUsers] = useState([
     {
       pin: "123",
       name: "Helen",
@@ -23,6 +23,16 @@ function App() {
     },
   ]);
 
+  // ensure to sync all the state updates for users
+  useEffect(() => {
+    const loggedInUserIdx = users?.findIndex(
+      (user) => user.pin === authorizedUser?.pin
+    );
+    if (loggedInUserIdx > -1) {
+      setUsers(users);
+    }
+  }, [authorizedUser]);
+
   return (
     <div
       style={{
@@ -38,7 +48,6 @@ function App() {
         <AccountView
           authorizedUser={authorizedUser}
           setAuthorizedUser={setAuthorizedUser}
-          users={users}
         />
       ) : (
         <PinPad users={users} setAuthorizedUser={setAuthorizedUser} />

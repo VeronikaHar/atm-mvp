@@ -6,7 +6,6 @@ export default function AccountAction({
   authorizedUser,
   setAuthorizedUser,
 }) {
-  console.log("!", authorizedUser);
   const [enteredAmount, setEnteredAmount] = useState("");
   const [withdrawalError, setWithdrawalError] = useState(false);
   const { remainingBalance, dailyWithdrawalLimit, withdrawnToday } =
@@ -22,7 +21,6 @@ export default function AccountAction({
   };
   const handleAction = () => {
     const enteredNumber = enteredAmount !== "" ? parseInt(enteredAmount) : 0;
-    console.log("!!", enteredNumber);
     if (
       action === "Withdraw" &&
       enteredNumber > 0 &&
