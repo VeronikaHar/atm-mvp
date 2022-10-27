@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function AccountAction({
   action,
@@ -11,14 +11,12 @@ export default function AccountAction({
   const { remainingBalance, dailyWithdrawalLimit, withdrawnToday } =
     authorizedUser;
 
-  const typeDigit = (digit) => {
+  useEffect(() => {
     setWithdrawalError(false);
-    setEnteredAmount(`${enteredAmount}${digit}`);
-  };
-  const delDigit = () => {
-    setWithdrawalError(false);
-    setEnteredAmount(enteredAmount.slice(0, -1));
-  };
+  }, [action, enteredAmount]);
+
+  const typeDigit = (digit) => setEnteredAmount(`${enteredAmount}${digit}`);
+  const delDigit = () => setEnteredAmount(enteredAmount.slice(0, -1));
   const handleAction = () => {
     const enteredNumber = enteredAmount !== "" ? parseInt(enteredAmount) : 0;
     if (
