@@ -29,10 +29,13 @@ function App() {
       (user) => user.pin === authorizedUser?.pin
     );
     if (loggedInUserIdx > -1) {
+      users[loggedInUserIdx] = {
+        ...authorizedUser,
+      };
       setUsers(users);
     }
-  }, [authorizedUser]);
-
+  }, [authorizedUser, users]);
+  console.log(users, authorizedUser);
   return (
     <div
       style={{
