@@ -9,11 +9,21 @@ export default function AccountView({ authorizedUser, setAuthorizedUser }) {
   return (
     <div>
       <h3>Welcome, {name}</h3>
+      <button
+        onClick={() => setAuthorizedUser()}
+        style={{
+          padding: "6px",
+          width: "50%",
+        }}
+      >
+        Log out
+      </button>
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "start",
+          paddingTop: "40px",
         }}
       >
         <div>Account Balance: {remainingBalance} USD</div>
